@@ -81,11 +81,17 @@ def convert_record(r, date_fields=[], decimal_fields=[], replacing={}, geo_handl
             if geo_handling['combinedfield'] not in d:
                 d[geo_handling['combinedfield']] = {}
             if k == geo_handling['latfield']:
-                lat = float(clean_d[k].replace(',', '.'))
-                d[geo_handling['combinedfield']]['lat'] = lat
+                try:
+                    lat = float(clean_d[k].replace(',', '.'))
+                    d[geo_handling['combinedfield']]['lat'] = lat
+                except ValueError:
+                    pass
             else:
-                lon = float(clean_d[k].replace(',', '.'))
-                d[geo_handling['combinedfield']]['lon'] = lon
+                try:
+                    lon = float(clean_d[k].replace(',', '.'))
+                    d[geo_handling['combinedfield']]['lon'] = lon
+                except ValueError:
+                    pass
         else:
             d[k] = clean_d[k]
     if extra_data:
