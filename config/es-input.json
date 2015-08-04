@@ -1,0 +1,35 @@
+{
+    "extra_data": {
+        "year": 2015,
+        "source": "dsg_all_2015-03_csv",
+        "tags": ["dsg"],
+        "kind": "anlagestammdaten",
+        "annotations": {
+            "power_kwh": "Wert von 2013"
+        }
+    },
+    "decimal_fields": [
+        "power_kwp_el",
+        "power_kwh",
+        "power_kwh_avg",
+        "power_kwh_kw"
+    ],
+    "elasticsearch": {
+        "index": "eeg-test",
+        "doc_type": "eeg-plant"
+    },
+    "date_formatting": {
+        "fields": ["date_plugoff", "date_start", "date_plugin", "date_stop"],
+        "strformat": "%d.%m.%Y"
+    },
+    "replacing": {
+        "carrier": {
+            "Solarstrom": "Solar"
+        }
+    },
+    "geo": {
+        "latfield": "lat",
+        "lonfield": "lon",
+        "combinedfield": "location"
+    }
+}
