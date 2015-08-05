@@ -292,11 +292,12 @@ ask_to_continue('looks good?')
 print('performing FULL TEST...')
 # FULL TEST
 docs = []
-i = 0
+i = 1
 
 for row in rows:
     try:
         docs.append(convert_record(row, date_fields, decimal_fields, replacing, geohandling, extra_data))
+        print('tested: %s of %s' % (str(i), str(len(rows))))
     except Exception as e:
         print('ERROR:\n')
         print(e)
@@ -361,11 +362,12 @@ if not doc_type:
 
 print('importing '+str(len(docs))+' records into elasticsearch...')
 
-i = 0
+i = 1
 
 for doc in docs:
     try:
         es.index(index=es_index, doc_type=doc_type, id=uuid.uuid4(), body=doc)
+        print('imported: %s of %s' % (str(i), str(len(docs))))
     except Exception as e:
         print('error while elasticsearch insert:\n')
         print(e)
