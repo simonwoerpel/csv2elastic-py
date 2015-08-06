@@ -367,7 +367,10 @@ i = 1
 
 for doc in docs:
     try:
-        es.index(index=es_index, doc_type=doc_type, id=uuid.uuid4(), body=doc)
+        doc_id = uuid.uuid4()
+        es.index(index=es_index, doc_type=doc_type, id=doc_id, body=doc)
+        map_doc = {'id': doc['id'], 'uuid': doc_id}
+        es.index(index='eeg-docid-mapping', doc_type='docid-mapping-plants', id=uuid.uuid4(), body=map_doc)
         print('imported: %s of %s' % (str(i), str(len(docs))))
     except Exception as e:
         print('error while elasticsearch insert:\n')
