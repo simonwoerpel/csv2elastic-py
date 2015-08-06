@@ -373,6 +373,7 @@ for doc in docs:
         print('error while elasticsearch insert:\n')
         print(e)
         print('doc row:' + str(i))
+        raise
     i += 1
 
 print('END: successfully imported %s records into elasticsearch!' % str(i))
