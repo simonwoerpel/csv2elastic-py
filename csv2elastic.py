@@ -81,17 +81,18 @@ def convert_record(r, date_fields=[], decimal_fields=[], replacing={}, geo_handl
             if geo_handling['combinedfield'] not in d:
                 d[geo_handling['combinedfield']] = {}
             if k == geo_handling['latfield']:
+            # for elasticsearch mapping of geo_type, lat & lon must be a number
                 try:
                     lat = float(clean_d[k].replace(',', '.'))
-                    d[geo_handling['combinedfield']]['lat'] = lat
                 except ValueError:
-                    pass
+                    lat = 0
+                d[geo_handling['combinedfield']]['lat'] = lat
             else:
                 try:
                     lon = float(clean_d[k].replace(',', '.'))
-                    d[geo_handling['combinedfield']]['lon'] = lon
                 except ValueError:
-                    pass
+                    lon = 0
+                d[geo_handling['combinedfield']]['lon'] = lon
         else:
             d[k] = clean_d[k]
     if extra_data:
